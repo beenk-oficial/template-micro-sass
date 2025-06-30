@@ -34,3 +34,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## 🎨 Componentes de interface
+
+Este projeto utiliza a biblioteca [`shadcn/ui`](https://ui.shadcn.com/) para os componentes de interface. Ela é baseada no Radix UI e usa Tailwind CSS para estilização, permitindo componentes altamente acessíveis, personalizáveis e modernos.
+
+## 🧩 Ícones
+
+Este projeto utiliza ícones modernos e minimalistas com suporte a múltiplas bibliotecas. A principal é [`lucide-react`](https://www.npmjs.com/package/lucide-react), mas também utilizamos [`@heroicons/react`](https://www.npmjs.com/package/@heroicons/react) e [`phosphor-react`](https://www.npmjs.com/package/phosphor-react) para maior flexibilidade visual.

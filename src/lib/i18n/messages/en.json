@@ -1,0 +1,77 @@
+{
+  "welcome": "Welcome to the platform",
+  "login": {
+    "login_title": "Login to your account",
+    "login_subtitle": "Enter your email below to login to your account",
+    "email_label": "Email",
+    "password_label": "Password",
+    "forgot_password": "Forgot your password?",
+    "remember_me": "Remember me",
+    "login_button": "Login",
+    "login_with": "Login with ",
+    "continue_with_google": "Continue with Google",
+    "signup_prompt": "Don't have an account?",
+    "signup_link": "Sign up"
+  },
+  "signup": {
+    "signup_title": "Create your account",
+    "signup_subtitle": "Fill in the fields below to register",
+    "email_label": "Email",
+    "password_label": "Password",
+    "name_label": "Full Name",
+    "name_placeholder": "Enter your full name",
+    "confirm_password_label": "Confirm Password",
+    "confirm_password_placeholder": "Repeat your password",
+    "agree_terms_and_conditions": "I agree to the",
+    "terms_link": "Terms of Service",
+    "privacy_policy_link": "Privacy Policy",
+    "and": "and",
+    "signup_button": "Register",
+    "signup_button_loading": "Registering...",
+    "signup_with": "Register with",
+    "continue_with_google": "Continue with Google",
+    "login_prompt": "Already have an account?",
+    "login_link": "Login"
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "introduction": "These Terms of Service govern the use of our platform.",
+    "usage_title": "Platform Usage",
+    "usage_description": "You agree to use the platform in accordance with applicable laws.",
+    "termination_title": "Termination",
+    "termination_description": "We may terminate or suspend your access to the platform at any time.",
+    "changes_title": "Changes to Terms",
+    "changes_description": "We reserve the right to change these Terms at any time."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "introduction": "This Privacy Policy describes how we collect and use your data.",
+    "data_collection_title": "Data Collection",
+    "data_collection_description": "We collect personal and non-personal data to improve our services.",
+    "data_usage_title": "Data Usage",
+    "data_usage_description": "We use your data to provide and improve our services.",
+    "changes_title": "Changes to Policy",
+    "changes_description": "We reserve the right to change this Policy at any time."
+  },
+  "password_reset": {
+    "title": "Reset Your Password",
+    "subtitle": "Enter your email address to receive a password reset link.",
+    "email_label": "Email",
+    "button": "Send Reset Link",
+    "button_loading": "Sending...",
+    "back_to_login": "Back to Login"
+  },
+  "change_password": {
+    "title": "Change Your Password",
+    "subtitle": "Enter your new password below to update your account.",
+    "password_label": "New Password",
+    "confirm_password_label": "Confirm New Password",
+    "button": "Change Password",
+    "button_loading": "Changing...",
+    "validating_token": "Validating token..."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error_occurred": "An error occurred. Please try again."
+  }
+}

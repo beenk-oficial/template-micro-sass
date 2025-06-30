@@ -1,0 +1,77 @@
+{
+  "welcome": "Bem-vindo à plataforma",
+  "login": {
+    "login_title": "Faça login na sua conta",
+    "login_subtitle": "Digite seu e-mail abaixo para acessar sua conta",
+    "email_label": "E-mail",
+    "password_label": "Senha",
+    "forgot_password": "Esqueceu sua senha?",
+    "remember_me": "Lembrar-me",
+    "login_button": "Entrar",
+    "login_with": "Entrar com",
+    "continue_with_google": "Continue com Google",
+    "signup_prompt": "Não tem uma conta?",
+    "signup_link": "Cadastre-se"
+  },
+  "signup": {
+    "signup_title": "Crie sua conta",
+    "signup_subtitle": "Preencha os campos abaixo para se registrar",
+    "email_label": "E-mail",
+    "password_label": "Senha",
+    "name_label": "Nome completo",
+    "name_placeholder": "Digite seu nome completo",
+    "confirm_password_label": "Confirmar senha",
+    "confirm_password_placeholder": "Repita sua senha",
+    "agree_terms_and_conditions": "Eu concordo com os ",
+    "terms_link": "Termos de Serviço",
+    "privacy_policy_link": "Política de Privacidade",
+    "and": "e",
+    "signup_button": "Registrar",
+    "signup_button_loading": "Registrando...",
+    "signup_with": "Registrar com",
+    "continue_with_google": "Continue com Google",
+    "login_prompt": "Já tem uma conta?",
+    "login_link": "Faça login"
+  },
+  "terms": {
+    "title": "Termos de Serviço",
+    "introduction": "Estes Termos de Serviço regem o uso da nossa plataforma.",
+    "usage_title": "Uso da Plataforma",
+    "usage_description": "Você concorda em usar a plataforma de acordo com as leis aplicáveis.",
+    "termination_title": "Rescisão",
+    "termination_description": "Podemos encerrar ou suspender seu acesso à plataforma a qualquer momento.",
+    "changes_title": "Alterações nos Termos",
+    "changes_description": "Reservamo-nos o direito de alterar estes Termos a qualquer momento."
+  },
+  "privacy": {
+    "title": "Política de Privacidade",
+    "introduction": "Esta Política de Privacidade descreve como coletamos e usamos seus dados.",
+    "data_collection_title": "Coleta de Dados",
+    "data_collection_description": "Coletamos dados pessoais e não pessoais para melhorar nossos serviços.",
+    "data_usage_title": "Uso de Dados",
+    "data_usage_description": "Usamos seus dados para fornecer e melhorar nossos serviços.",
+    "changes_title": "Alterações na Política",
+    "changes_description": "Reservamo-nos o direito de alterar esta Política a qualquer momento."
+  },
+  "request_password_reset": {
+    "title": "Redefinir sua senha",
+    "subtitle": "Digite seu e-mail para receber um link de redefinição de senha.",
+    "email_label": "E-mail",
+    "button": "Enviar link de redefinição",
+    "button_loading": "Enviando...",
+    "back_to_login": "Voltar para o login"
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error_occurred": "Ocorreu um erro. Por favor, tente novamente."
+  },
+  "change_password": {
+    "title": "Alterar sua senha",
+    "subtitle": "Digite sua nova senha abaixo para atualizar sua conta.",
+    "password_label": "Nova senha",
+    "confirm_password_label": "Confirmar nova senha",
+    "button": "Alterar senha",
+    "button_loading": "Alterando...",
+    "validating_token": "Validando token..."
+  }
+}
