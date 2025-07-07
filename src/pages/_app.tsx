@@ -19,7 +19,10 @@ export default function App({ Component, pageProps }: AppProps) {
     setSlug((router.query?.slug as string) || "");
     setDomain(window.location.hostname);
 
-    loadWhitelabel().then(() => setLoading(false));
+    loadWhitelabel({
+      slug: router.query?.slug as string,
+      domain: window.location.hostname,
+    }).then(() => setLoading(false));
   }, []);
 
   if (loading) {

@@ -31,7 +31,8 @@
     "signup_with": "Register with",
     "continue_with_google": "Continue with Google",
     "login_prompt": "Already have an account?",
-    "login_link": "Login"
+    "login_link": "Login",
+    "password_mismatch_error": "Passwords do not match."
   },
   "terms": {
     "title": "Terms of Service",
@@ -59,7 +60,11 @@
     "email_label": "Email",
     "button": "Send Reset Link",
     "button_loading": "Sending...",
-    "back_to_login": "Back to Login"
+    "back_to_login": "Back to Login",
+    "password_reset_email_sent": "Password reset email sent successfully.",
+    "token_storage_failed": "Failed to store reset token.",
+    "user_not_found": "User not found.",
+    "missing_email": "Email is required."
   },
   "change_password": {
     "title": "Change Your Password",
@@ -70,8 +75,34 @@
     "button_loading": "Changing...",
     "validating_token": "Validating token..."
   },
-  "common": {
+  "general": {
     "loading": "Loading...",
-    "error_occurred": "An error occurred. Please try again."
+    "error_occurred": "An error occurred. Please try again.",
+    "method_not_allowed": "Method not allowed.",
+    "missing_credentials": "Some required fields are still missing.",
+    "invalid_credentials": "Invalid email or password.",
+    "user_not_active": "User is not active.",
+    "user_banned": "User is banned.",
+    "invalid_auth_provider": "Invalid authentication provider.",
+    "token_storage_failed": "Failed to store refresh token.",
+    "company_id_header_required": "Company-Id header is required.",
+    "company_not_active": "Company is not active.",
+    "authorization_code_required": "Authorization code is required.",
+    "google_auth_failed": "Failed to authenticate with Google.",
+    "user_creation_failed": "Failed to create user.",
+    "user_authentication_failed": "Failed to authenticate user.",
+    "user_already_exists": "User already exists.",
+    "dashboard": "Dashboard",
+    "manage_users": "Manage Users",
+    "plans_and_subscriptions": "Plans and Subscriptions",
+    "payments": "Payments",
+    "invoices": "Invoices",
+    "promo_codes": "Promo Codes",
+    "referrals": "Referrals",
+    "access_control": "Access Control",
+    "settings": "Settings",
+    "company": "Company",
+    "whitelabel": "Whitelabel",
+    "billing": "Billing"
   }
 }

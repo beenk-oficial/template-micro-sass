@@ -31,7 +31,8 @@
     "signup_with": "Registrar con",
     "continue_with_google": "Continuar con Google",
     "login_prompt": "¿Ya tienes una cuenta?",
-    "login_link": "Inicia sesión"
+    "login_link": "Inicia sesión",
+    "password_mismatch_error": "Las contraseñas no coinciden."
   },
   "terms": {
     "title": "Términos de Servicio",
@@ -59,7 +60,11 @@
     "email_label": "Correo electrónico",
     "button": "Enviar enlace de restablecimiento",
     "button_loading": "Enviando...",
-    "back_to_login": "Volver al inicio de sesión"
+    "back_to_login": "Volver al inicio de sesión",
+    "password_reset_email_sent": "Correo de restablecimiento de contraseña enviado exitosamente.",
+    "token_storage_failed": "Error al almacenar el token de restablecimiento.",
+    "user_not_found": "Usuario no encontrado.",
+    "missing_email": "El correo electrónico es obligatorio."
   },
   "change_password": {
     "title": "Cambiar tu contraseña",
@@ -70,8 +75,34 @@
     "button_loading": "Cambiando...",
     "validating_token": "Validando token..."
   },
-  "common": {
+  "general": {
     "loading": "Cargando...",
-    "error_occurred": "Ocurrió un error. Por favor, inténtelo de nuevo."
+    "error_occurred": "Ocurrió un error. Por favor, inténtelo de nuevo.",
+    "method_not_allowed": "Método no permitido.",
+    "missing_credentials": "Faltan algunos campos obligatorios por completar.",
+    "invalid_credentials": "Correo electrónico o contraseña inválidos.",
+    "user_not_active": "El usuario no está activo.",
+    "user_banned": "El usuario está bloqueado.",
+    "invalid_auth_provider": "Proveedor de autenticación inválido.",
+    "token_storage_failed": "Error al almacenar el token de actualización.",
+    "company_id_header_required": "El encabezado Company-Id es obligatorio.",
+    "company_not_active": "La empresa no está activa.",
+    "authorization_code_required": "El código de autorización es obligatorio.",
+    "google_auth_failed": "Error al autenticar con Google.",
+    "user_creation_failed": "Error al crear el usuario.",
+    "user_authentication_failed": "Error al autenticar al usuario.",
+    "user_already_exists": "El usuario ya existe.",
+    "dashboard": "Tablero",
+    "manage_users": "Gestionar Usuarios",
+    "plans_and_subscriptions": "Planes y Suscripciones",
+    "payments": "Pagos",
+    "invoices": "Facturas",
+    "promo_codes": "Códigos Promocionales",
+    "referrals": "Referencias",
+    "access_control": "Control de Acceso",
+    "settings": "Configuraciones",
+    "company": "Empresa",
+    "whitelabel": "Marca Blanca",
+    "billing": "Facturación"
   }
 }

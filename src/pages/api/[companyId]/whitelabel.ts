@@ -7,22 +7,22 @@ const whitelabelData = {
 
     radius: "6px",
     card: "#2C2547",
-    cardForeground: "#FFFFFF",
+    "card-foreground": "#FFFFFF",
 
     popover: "#3A2F5E",
-    popoverForeground: "#EDE9FE",
+    "popover-foreground": "#EDE9FE",
 
     primary: "#8A22F2",
-    primaryForeground: "#FFFFFF",
+    "primary-foreground": "#FFFFFF",
 
     secondary: "#3D1673",
-    secondaryForeground: "#FFFFFF",
+    "secondary-foreground": "#FFFFFF",
 
     muted: "#7C1BA6",
-    mutedForeground: "#D8B4FE",
+    "muted-foreground": "#D8B4FE",
 
     accent: "#7C1ED9",
-    accentForeground: "#FFFFFF",
+    "accent-foreground": "#FFFFFF",
 
     destructive: "#DC3545",
     border: "#4E3C63",
@@ -36,17 +36,22 @@ const whitelabelData = {
     chart5: "#AA22F2",
 
     sidebar: "#1A112F",
-    sidebarForeground: "#FFFFFF",
-    sidebarPrimary: "#8A22F2",
-    sidebarPrimaryForeground: "#FFFFFF",
-    sidebarAccent: "#7C1ED9",
-    sidebarAccentForeground: "#FFFFFF",
-    sidebarBorder: "#332B4D",
-    sidebarRing: "#8A22F2",
+    "sidebar-foreground": "#F5F5F5",
+
+    "sidebar-primary": "#A950FF",
+    "sidebar-primary-foreground": "#0D011A",
+
+    "sidebar-accent": "#9B40F9",
+    "sidebar-accent-foreground": "#0D011A",
+
+    "sidebar-border": "#3E325F",
+    "sidebar-ring": "#C48CFF",
   },
 
   name: "Beenk",
   logo: "/beenk.png",
+  favicon: "/beenk_favicon.png",
+  email: "beenk@gmail.com",
   marketing_banner: {
     login: "/marketing-banner.svg",
     signup: "/marketing-banner.svg",

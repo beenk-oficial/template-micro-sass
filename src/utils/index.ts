@@ -13,7 +13,17 @@ export function normalizeLink(
   link: string,
   router: NextRouter | null = null
 ): string {
-  const slug =
-    useWhitelabelStore((state) => state.company?.slug) ?? router?.query?.slug;
+  const slug = router?.query?.slug;
   return slug ? `/${slug}${link}` : link;
+}
+
+export function getCookieValue(key: string): string | null {
+  const cookie = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith(`${key}=`));
+  return cookie ? cookie.split("=")[1] : null;
+}
+
+export function setCookie(key: string, value: string, maxAge: number) {
+  document.cookie = `${key}=${value}; Path=/; Max-Age=${maxAge}; Secure; HttpOnly`;
 }

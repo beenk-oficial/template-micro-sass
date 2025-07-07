@@ -1,9 +1,9 @@
-import { CompanyUser } from "@/types";
+import { User } from "@/types";
 import { create } from "zustand";
 
 type UserStore = {
-  user: CompanyUser | null;
-  setUser: (user: CompanyUser) => void;
+  user: User | null;
+  setUser: (user: User) => void;
   clearUser: () => void;
 };
 

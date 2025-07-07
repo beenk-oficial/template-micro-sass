@@ -53,6 +53,7 @@ export const useWhitelabelStore = create<{
   setDomain: (domain: string) => void;
   setColors: (newColors: Partial<WhitelabelColors>) => void;
   setCompany: (company: Company) => void;
+  setFavicon: (favicon: string) => void;
 }>((set) => ({
   colors: null as unknown as WhitelabelColors,
   name: null as unknown as string,
@@ -72,4 +73,5 @@ export const useWhitelabelStore = create<{
   setCompany: (company: Company) => set({ company }),
   setSlug: (slug) => set({ slug }),
   setDomain: (domain: string) => set({ domain }),
+  setFavicon: (favicon: string) => set({ favicon }),
 }));

@@ -1,3 +1,69 @@
+export enum UserType {
+  ADMIN = "admin",
+  USER = "user",
+  OWNER = "owner",
+  GUEST = "guest",
+}
+
+export enum CompanyStatus {
+  ACTIVE = "active",
+  INACTIVE = "inactive",
+  SUSPENDED = "suspended",
+  PENDING = "pending",
+}
+
+export enum NotificationType {
+  INFO = "info",
+  WARNING = "warning",
+  SUCCESS = "success",
+  ERROR = "error",
+}
+
+export enum AuthProvider {
+  EMAIL = "email",
+  GOOGLE = "google",
+}
+
+export enum SubscriptionOwnerType {
+  USER = "user",
+  COMPANY = "company",
+}
+
+export enum SubscriptionStatus {
+  INCOMPLETE = "incomplete",
+  INCOMPLETE_EXPIRED = "incomplete_expired",
+  TRIALING = "trialing",
+  ACTIVE = "active",
+  PAST_DUE = "past_due",
+  CANCELED = "canceled",
+  UNPAID = "unpaid",
+}
+
+export enum ReferralStatus {
+  PENDING = "pending",
+  ACCEPTED = "accepted",
+  REWARDED = "rewarded",
+}
+
+export enum InvoiceStatus {
+  DRAFT = "draft",
+  OPEN = "open",
+  PAID = "paid",
+  UNCOLLECTIBLE = "uncollectible",
+  VOID = "void",
+}
+
+export enum DiscountType {
+  PERCENTAGE = "percentage",
+  FIXED = "fixed",
+}
+
+export enum PaymentStatus {
+  PENDING = "pending",
+  PAID = "paid",
+  FAILED = "failed",
+}
+
 export type Company = {
   id: string;
   white_label_id?: string;
@@ -20,8 +86,8 @@ export type Company = {
   bank_agency?: string;
   pix_key?: string;
   industry?: string;
-  status?: "active" | "inactive" | string;
-};
+  status?: CompanyStatus;
+} & Timestamps;
 
 export type User = {
   id: string;
@@ -35,22 +101,205 @@ export type User = {
   document_type?: string;
   document_number?: string;
   show_onboarding?: boolean;
-  is_banned?: boolean;
-};
-
-export type CompanyUser = {
-  id: string;
-  role_id?: string;
-  company_id: string;
-  user_id: string;
   avatar_url?: string;
-  phone?: string;
+  is_banned?: boolean;
   type: UserType;
-  is_active?: boolean;
+} & Timestamps;
+
+export type Timestamps = {
+  created_at?: string;
+  created_by?: string;
+  updated_at?: string;
+  updated_by?: string;
+  deleted_at?: string;
+  deleted_by?: string;
 };
 
-export enum UserType {
-  ADMIN = "admin",
-  USER = "user",
-  OWNER = "owner",
-}
+export type Address = {
+  id: string;
+  address_line?: string;
+  number?: string;
+  complement?: string;
+  neighborhood?: string;
+  city?: string;
+  state?: string;
+  postal_code?: string;
+  country?: string;
+} & Timestamps;
+
+export type Role = {
+  id: string;
+  name: string;
+  description: string;
+} & Timestamps;
+
+export type WhiteLabel = {
+  id: string;
+  name: string;
+  logo_url?: string;
+  favicon_url?: string;
+  colors?: Record<string, any>;
+} & Timestamps;
+
+export type Notification = {
+  id: string;
+  user_id?: string;
+  company_id?: string;
+  title: string;
+  message: string;
+  type?: NotificationType;
+  action_url?: string;
+  read_at?: string;
+  sent_at?: string;
+  expires_at?: string;
+} & Timestamps;
+
+export type Permission = {
+  id: string;
+  name: string;
+  description: string;
+} & Timestamps;
+
+export type PermissionRole = {
+  id: string;
+  permission_id: string;
+  role_id: string;
+} & Timestamps;
+
+export type Authentication = {
+  id: string;
+  user_id: string;
+  provider?: AuthProvider;
+  provider_id?: string;
+  email: string;
+  password_hash?: string;
+  last_login?: string;
+  access_token?: string;
+  access_token_expires_at?: string;
+  refresh_token?: string;
+  refresh_token_expires_at?: string;
+  reset_token?: string;
+  expires_reset_token_at?: string;
+} & Timestamps;
+
+export type AuditLog = {
+  id: string;
+  auth_id: string;
+  event: string;
+  ip_address?: string;
+  user_agent?: string;
+  origin?: string;
+  metadata?: Record<string, any>;
+} & Timestamps;
+
+export type Subscription = {
+  id: string;
+  user_id?: string;
+  company_id?: string;
+  owner_type: SubscriptionOwnerType;
+  stripe_subscription_id: string;
+  stripe_customer_id?: string;
+  plan_id: string;
+  status: SubscriptionStatus;
+  current_period_start?: string;
+  current_period_end?: string;
+  cancel_at_period_end?: boolean;
+  canceled_at?: string;
+  trial_start?: string;
+  trial_end?: string;
+} & Timestamps;
+
+export type SubscriptionLog = {
+  id: string;
+  subscription_id: string;
+  company_id?: string;
+  user_id?: string;
+  event: string;
+  message?: string;
+  metadata?: Record<string, any>;
+} & Timestamps;
+
+export type Invoice = {
+  id: string;
+  subscription_id?: string;
+  company_id?: string;
+  user_id?: string;
+  stripe_invoice_id?: string;
+  invoice_pdf_url?: string;
+  amount: number;
+  currency?: string;
+  status: InvoiceStatus;
+  due_date?: string;
+  paid_at?: string;
+} & Timestamps;
+
+export type Referral = {
+  id: string;
+  referrer_user_id: string;
+  referred_user_id?: string;
+  referral_code: string;
+  company_id: string;
+  status?: ReferralStatus;
+  rewarded_at?: string;
+} & Timestamps;
+
+export type License = {
+  id: string;
+  name: string;
+  description?: string;
+  features?: Record<string, any>;
+  limits?: Record<string, any>;
+} & Timestamps;
+
+export type Plan = {
+  id: string;
+  license_id: string;
+  name: string;
+  stripe_price_id: string;
+  monthly_price: number;
+  duration_months: number;
+  discount_percent?: number;
+  original_price?: number;
+  discount_price?: number;
+  is_active?: boolean;
+} & Timestamps;
+
+export type PromoCode = {
+  id: string;
+  code: string;
+  description?: string;
+  discount_type: DiscountType;
+  discount_value: number;
+  usage_limit?: number;
+  total_usage_limit?: number;
+  expires_at?: string;
+  company_id?: string;
+} & Timestamps;
+
+export type PromoCodeUsage = {
+  id: string;
+  promo_code_id: string;
+  user_id: string;
+  company_id: string;
+  used_at?: string;
+} & Timestamps;
+
+export type Payment = {
+  id: string;
+  company_id: string;
+  customer_id: string;
+  amount_total: number;
+  platform_fee: number;
+  amount_received: number;
+  status: PaymentStatus;
+  stripe_payment_id: string;
+} & Timestamps;
+
+export type Payout = {
+  id: string;
+  company_id: string;
+  payment_id: string;
+  amount: number;
+  status: PaymentStatus;
+  stripe_transfer_id?: string;
+} & Timestamps;

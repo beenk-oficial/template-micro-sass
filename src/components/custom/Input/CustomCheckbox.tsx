@@ -1,35 +1,35 @@
 import React from "react";
-import { Input } from "@/components/ui/input";
 import CustomInputGroup from "./CustomInputGroup";
+import { Checkbox } from "@/components/ui/checkbox";
 
-interface CustomInputProps {
+interface CustomCheckboxProps {
   id?: string;
   name?: string;
   type?: string;
   placeholder?: string;
-  value: string;
+  value: boolean;
   label?: string;
   htmlFor?: string;
   required?: boolean;
   error?: string;
   disabled?: boolean;
   additionalElement?: React.ReactNode;
-  onChange: (value: string) => void;
+  labelPosition?: "top" | "left";
+  onChange: (value: boolean | string) => void;
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({
+const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
   id,
   name,
-  type = "text",
-  placeholder = "",
   value,
   label,
   htmlFor,
   error = "",
   required = false,
   disabled = false,
-  onChange,
   additionalElement,
+  labelPosition = "left",
+  onChange,
 }) => {
   return (
     <CustomInputGroup
@@ -38,19 +38,17 @@ const CustomInput: React.FC<CustomInputProps> = ({
       error={error}
       required={required}
       additionalElement={additionalElement}
+      labelPosition={labelPosition}
     >
-      <Input
+      <Checkbox
         id={id ?? name}
         name={name}
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        required={required}
+        checked={value}
+        onCheckedChange={(checked) => onChange(checked)}
         disabled={disabled}
-        onChange={(e) => onChange(e.target.value)}
       />
     </CustomInputGroup>
   );
 };
 
-export default CustomInput;
+export default CustomCheckbox;

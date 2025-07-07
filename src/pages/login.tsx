@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { Checkbox } from "@/components/ui/checkbox";
 import { useTranslations } from "next-intl";
 import { GoogleLogo } from "phosphor-react";
 import { useUserStore } from "@/stores/user";
 import AuthLayout from "@/components/layout/AuthLayout";
-import { CompanyUser, UserType } from "@/types";
-import { useSession } from "@/hooks/useSession";
+import { User, UserType } from "@/types";
 import CustomLink from "@/components/custom/CustomLink";
-import { normalizeLink } from "@/utils";
+import { getCookieValue, normalizeLink, setCookie } from "@/utils";
 import CustomInput from "@/components/custom/Input/CustomInput";
+import CustomCheckbox from "@/components/custom/Input/CustomCheckbox";
+import CustomMessageBox from "@/components/custom/Input/CustomMessageBox";
+import { useFetch } from "@/hooks/useFetch";
 
 //@TODO: Set cookie of authentication access to recover session
 // and redirect to the correct page based on user type.
@@ -21,44 +19,12 @@ import CustomInput from "@/components/custom/Input/CustomInput";
 //@TODO: Fix layout of buttons;
 //@TODO: Show errors messges when login fails. blocked user, inactive user, etc.
 //@TODO: color of inputs more light, and more contrast with the background.
-//@TODO: Remove table "company_users" to use only "user" adn join them;
 //@TODO: Create components to reuse in the other pages.
-//@TODO: Create migrations to create the database structure and tables.
-
-const manageCookie = (
-  key: string,
-  value: string | null,
-  days: number | null
-) => {
-  if (value && days) {
-    const expires = new Date();
-    expires.setDate(expires.getDate() + days);
-    document.cookie = `${key}=${value};expires=${expires.toUTCString()};path=/`;
-  } else {
-    document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
-  }
-};
-
-const handleCheckboxChange = (
-  checked: CheckboxPrimitive.CheckedState,
-  setState: React.Dispatch<React.SetStateAction<boolean>>
-) => {
-  if (typeof checked === "boolean") {
-    setState(checked);
-  }
-};
-
-const getCookieValue = (key: string): string | null => {
-  const cookie = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith(`${key}=`));
-  return cookie ? cookie.split("=")[1] : null;
-};
 
 export default function Login() {
   const router = useRouter();
   const t = useTranslations("login") || ((key: string) => key);
-  const { companyId } = useSession();
+  const generalTranslate = useTranslations("general") || ((key: string) => key);
 
   const setUser = useUserStore((state) => state.setUser);
 
@@ -67,9 +33,12 @@ export default function Login() {
   const [rememberMe, setRememberMe] = useState(false);
 
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const customFetch = useFetch();
 
   useEffect(() => {
-    const savedEmail = getCookieValue("user_email");
+    const savedEmail = getCookieValue("userEmail");
 
     if (savedEmail) {
       setEmail(savedEmail);
@@ -88,9 +57,9 @@ export default function Login() {
 
   const redirectUserByType = (userType: string) => {
     if (userType === UserType.ADMIN) {
-      router.push(normalizeLink("/admin"));
+      router.push(normalizeLink("/admin/dashboard", router));
     } else if (userType === UserType.USER) {
-      router.push(normalizeLink("/app"));
+      router.push(normalizeLink("/app/dashboard", router));
     } else if (userType === UserType.OWNER) {
       router.push("/owner");
     }
@@ -99,32 +68,31 @@ export default function Login() {
   const authenticateWithGoogle = async (
     code: string,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-    setUser: (user: CompanyUser) => void,
-    router: ReturnType<typeof useRouter>
+    setUser: (user: User) => void
   ) => {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/auth/google", {
+      const response = await customFetch("/api/auth/google", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ code, company_id: null }),
+        body: { code },
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Google login error:", errorData.error);
+        setErrorMessage(generalTranslate("error_occurred"));
         setLoading(false);
         return;
       }
 
-      const { user } = await response.json();
-      setUser(user as CompanyUser);
+      const { user, token } = await response.json();
+      setUser(user as User);
+
+      setCookie("accessToken", token.access_token, 3600);
+      setCookie("refreshToken", token.refresh_token, 604800);
+
       redirectUserByType(user.type);
     } catch (error) {
-      console.error("Unexpected error during Google login:", error);
+      setErrorMessage(generalTranslate("error_occurred"));
     } finally {
       setLoading(false);
     }
@@ -135,41 +103,43 @@ export default function Login() {
     const code = urlParams.get("code");
 
     if (code) {
-      authenticateWithGoogle(code, setLoading, setUser, router);
+      authenticateWithGoogle(code, setLoading, setUser);
     }
   }, [router]);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage(null);
 
     try {
-      const response = await fetch("/api/login", {
+      const response = await customFetch("/api/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+        body: {
           email,
           password,
-          company_id: companyId,
-        }),
+        },
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Login error:", errorData.error);
+        setErrorMessage(
+          generalTranslate(errorData.key) || generalTranslate("error_occurred")
+        );
         setLoading(false);
         return;
       }
 
-      const { user } = await response.json();
+      const { user, token } = await response.json();
+      setUser(user as unknown as User);
 
-      setUser(user as unknown as CompanyUser);
-      manageCookie("user_email", email, rememberMe ? 30 : null);
+      setCookie("accessToken", token.access_token, 3600);
+      setCookie("refreshToken", token.refresh_token, 604800);
+      setCookie("userEmail", email, rememberMe ? 604800 : 0);
+
       redirectUserByType(user.type);
     } catch (error) {
-      console.error("Unexpected error during login:", error);
+      setErrorMessage(generalTranslate("error_occurred"));
     } finally {
       setLoading(false);
     }
@@ -181,6 +151,8 @@ export default function Login() {
         className="flex flex-col gap-6 max-w-md w-full justify-center align-center"
         onSubmit={handleEmailLogin}
       >
+        <CustomMessageBox message={errorMessage} type="error" />
+
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="text-2xl font-bold">{t("login_title")}</h1>
           <p className="text-muted-foreground text-sm text-balance">
@@ -189,46 +161,40 @@ export default function Login() {
         </div>
         <div className="grid gap-6">
           <CustomInput
-            htmlFor="email"
+            name="email"
             label={t("email_label")}
-            id="email"
             type="email"
             value={email}
             onChange={setEmail}
             disabled={loading}
             required
           />
-          <div className="grid gap-3">
-            <div className="flex items-center">
-              <Label htmlFor="password">{t("password_label")}</Label>
+          <CustomInput
+            label={t("password_label")}
+            name="password"
+            type="password"
+            value={password}
+            onChange={setPassword}
+            disabled={loading}
+            additionalElement={
               <CustomLink
                 href="/request_password_reset"
                 className="ml-auto text-sm underline-offset-4 hover:underline"
               >
                 {t("forgot_password")}
               </CustomLink>
-            </div>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={loading}
-              required
-            />
-          </div>
-          <div className="flex items-center">
-            <Checkbox
-              checked={rememberMe}
-              onCheckedChange={(checked) =>
-                handleCheckboxChange(checked, setRememberMe)
-              }
-              disabled={loading}
-            />
-            <Label className="ml-2 text-sm">{t("remember_me")}</Label>
-          </div>
+            }
+            required
+          />
+          <CustomCheckbox
+            name="rememberMe"
+            value={rememberMe}
+            label={t("remember_me")}
+            disabled={loading}
+            onChange={(checked) => setRememberMe(checked as boolean)}
+          />
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? t("login_button") : t("login_button")}
+            {loading ? generalTranslate("loading") : t("login_button")}
           </Button>
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
             <span className="bg-background text-muted-foreground relative z-10 px-2">
@@ -237,9 +203,10 @@ export default function Login() {
           </div>
           <Button
             variant="outline"
-            className="w-full flex items-center gap-2"
+            className="w-full flex items-center gap-2 hover:bg-red-400"
             onClick={handleGoogleLogin}
             disabled={loading}
+            type="button"
           >
             <GoogleLogo size={24} weight="bold" />
             {t("continue_with_google")}
