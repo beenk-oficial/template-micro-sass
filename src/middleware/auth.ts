@@ -65,8 +65,8 @@ export async function authMiddleware(
         }
 
         res.setHeader("Set-Cookie", [
-          `accessToken=${newAccessToken}; HttpOnly; Path=/; Max-Age=3600`,
-          `refreshToken=${newRefreshToken}; HttpOnly; Path=/; Max-Age=604800`,
+          `accessToken=${newAccessToken}; Path=/; Max-Age=3600`,
+          `refreshToken=${newRefreshToken}; Path=/; Max-Age=604800`,
         ]);
 
         return next();

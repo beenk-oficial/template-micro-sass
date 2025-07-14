@@ -103,6 +103,13 @@
     "settings": "Configuraciones",
     "company": "Empresa",
     "whitelabel": "Marca Blanca",
-    "billing": "Facturación"
+    "billing": "Facturación",
+    "rows_per_page": "Filas por página",
+    "page": "Página",
+    "of": "de",
+    "go_to_first_page": "Ir a la primera página",
+    "go_to_previous_page": "Ir a la página anterior",
+    "go_to_next_page": "Ir a la página siguiente",
+    "go_to_last_page": "Ir a la última página"
   }
 }

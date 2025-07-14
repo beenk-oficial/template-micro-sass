@@ -15,11 +15,6 @@ import { useFetch } from "@/hooks/useFetch";
 
 //@TODO: Set cookie of authentication access to recover session
 // and redirect to the correct page based on user type.
-//@TODO: Add validation for fields and error handling to forms.
-//@TODO: Fix layout of buttons;
-//@TODO: Show errors messges when login fails. blocked user, inactive user, etc.
-//@TODO: color of inputs more light, and more contrast with the background.
-//@TODO: Create components to reuse in the other pages.
 
 export default function Login() {
   const router = useRouter();

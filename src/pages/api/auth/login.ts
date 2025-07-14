@@ -154,8 +154,8 @@ export default checkCompanyId(async function handler(
   });
 
   res.setHeader("Set-Cookie", [
-    `accessToken=${accessToken}; HttpOnly; Path=/; Max-Age=3600`,
-    `refreshToken=${refreshToken}; HttpOnly; Path=/; Max-Age=604800`,
+    `accessToken=${accessToken}; Path=/; Max-Age=3600`,
+    `refreshToken=${refreshToken}; Path=/; Max-Age=604800`,
   ]);
 
   return res.status(200).json({

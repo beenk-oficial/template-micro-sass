@@ -32,6 +32,32 @@ export default async function handler(
       email: string;
     };
 
+    const { data: user } = await supabase
+      .from("users")
+      .select(
+        `
+        id,
+        full_name,
+        company_id,
+        type,
+        is_active,
+        is_banned,
+        email,
+        company:companies (
+          status
+        ),
+        authentication:authentications (
+          id,
+          provider,
+          password_hash
+        )
+      `
+      )
+      .eq("id", user_id)
+      .eq("company_id", company_id)
+      .eq("email", email)
+      .single();
+
     const { data: authentication, error } = await supabase
       .from("authentications")
       .select("id")
@@ -39,7 +65,7 @@ export default async function handler(
       .eq("refresh_token", refreshToken)
       .single();
 
-    if (error || !authentication) {
+    if (error || !authentication || !user) {
       return res.status(401).json({
         error: "Invalid refresh token",
         key: "invalid_refresh_token",
@@ -69,6 +95,7 @@ export default async function handler(
       .eq("id", authentication.id);
 
     return res.status(200).json({
+      user,
       accessToken: newAccessToken,
       refreshToken: newRefreshToken,
     });

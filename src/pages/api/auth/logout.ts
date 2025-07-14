@@ -33,14 +33,14 @@ export default async function handler(
       .from("company_users")
       .select(
         `
-    company_id,
-    user:users!inner (
-      id
-    ),
-    authentication:authentications (
-      id
-    )
-    `
+        company_id,
+        user:users!inner (
+          id
+        ),
+        authentication:authentications (
+          id
+        )
+        `
       )
       .eq("company_id", companyId)
       .eq("user.email", email)
@@ -85,8 +85,8 @@ export default async function handler(
     }
 
     res.setHeader("Set-Cookie", [
-      `accessToken=; HttpOnly; Path=/; Max-Age=0`,
-      `refreshToken=; HttpOnly; Path=/; Max-Age=0`,
+      `accessToken=; Path=/; Max-Age=0`,
+      `refreshToken=; Path=/; Max-Age=0`,
     ]);
 
     return res.status(200).json({ message: "Logout successful" });

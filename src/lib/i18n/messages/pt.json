@@ -103,6 +103,13 @@
     "settings": "Configurações",
     "company": "Empresa",
     "whitelabel": "Whitelabel",
-    "billing": "Cobrança"
+    "billing": "Cobrança",
+    "rows_per_page": "Linhas por página",
+    "page": "Página",
+    "of": "de",
+    "go_to_first_page": "Ir para a primeira página",
+    "go_to_previous_page": "Ir para a página anterior",
+    "go_to_next_page": "Ir para a próxima página",
+    "go_to_last_page": "Ir para a última página"
   }
 }

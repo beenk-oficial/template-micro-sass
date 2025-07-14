@@ -18,6 +18,11 @@ import { useSession } from "@/hooks/useSession";
 import { useWhitelabel } from "@/hooks/useWhitelabel";
 import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+import { useFetch } from "@/hooks/useFetch";
+import { useUserStore } from "@/stores/user";
+import { setCookie } from "@/utils";
+import { User, UserType } from "@/types";
 
 export default function AdminLayout({
   children,
@@ -28,6 +33,25 @@ export default function AdminLayout({
   const { user } = useSession();
   const router = useRouter();
   const t = useTranslations();
+  const customFetch = useFetch();
+  const setUser = useUserStore((state) => state.setUser);
+
+  useEffect(() => {
+    if (user?.type !== UserType.ADMIN) handleLogout();
+  }, [user, router]);
+
+  //@TODO: Finish endpoint to logout user
+  // and remove access and refresh tokens from cookies.
+  function handleLogout() {
+    customFetch("/api/auth/logout", {
+      method: "POST",
+    }).then(() => {
+      setUser(null as unknown as User);
+      setCookie("accessToken", "", 3600);
+      setCookie("refreshToken", "", 604800);
+      router.push("/login");
+    });
+  }
 
   const sidebarData = {
     user: {

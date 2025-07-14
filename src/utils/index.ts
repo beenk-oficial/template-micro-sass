@@ -21,9 +21,10 @@ export function getCookieValue(key: string): string | null {
   const cookie = document.cookie
     .split("; ")
     .find((row) => row.startsWith(`${key}=`));
+  console.log("Cookie Value:", document.cookie);
   return cookie ? cookie.split("=")[1] : null;
 }
 
 export function setCookie(key: string, value: string, maxAge: number) {
-  document.cookie = `${key}=${value}; Path=/; Max-Age=${maxAge}; Secure; HttpOnly`;
+  document.cookie = `${key}=${value}; Path=/; Max-Age=${maxAge}; `;
 }

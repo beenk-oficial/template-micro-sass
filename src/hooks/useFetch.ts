@@ -10,6 +10,7 @@ export const useFetch = () => {
       method?: string;
       headers?: Record<string, string>;
       body?: any;
+      query?: Record<string, any>;
     } = {},
     retry = true
   ) => {
@@ -20,9 +21,19 @@ export const useFetch = () => {
       Authorization: `Bearer ${accessToken || ""}`,
     };
 
-    const { method = "GET", headers = {}, body } = options;
+    const { method = "GET", headers = {}, body, query } = options;
 
-    const response = await fetch(url, {
+    const queryString = query
+      ? "?" +
+        new URLSearchParams(
+          Object.entries(query).reduce((acc, [key, value]) => {
+            acc[key] = String(value);
+            return acc;
+          }, {} as Record<string, string>)
+        ).toString()
+      : "";
+
+    const response = await fetch(url + queryString, {
       method,
       headers: { ...defaultHeaders, ...headers },
       body: body ? JSON.stringify(body) : undefined,
@@ -34,7 +45,7 @@ export const useFetch = () => {
       if (refreshToken) {
         const tokenResponse = await fetch("/api/auth/refresh", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { ...defaultHeaders, ...headers },
           body: JSON.stringify({ refreshToken }),
         });
 
