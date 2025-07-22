@@ -60,7 +60,8 @@ export default function TablePagination({
         </Select>
       </div>
       <div className="flex w-fit items-center justify-center text-sm font-medium">
-        {t("page")} {pagination.currentPage} {t("of")} {pagination.totalPages}
+        {t("page")} {pagination.currentPage} {t("of")}{" "}
+        {pagination.totalPages === 0 ? 1 : pagination.totalPages}
       </div>
       <div className="ml-auto flex items-center gap-2 lg:ml-0">
         <Button

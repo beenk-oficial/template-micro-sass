@@ -2,8 +2,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 const whitelabelData = {
   colors: {
-    background: "#1E1B2E", // tom escuro para contraste
-    foreground: "#F5F5FF", // texto claro
+    background: "#1E1B2E",
+    foreground: "#F5F5FF",
 
     radius: "6px",
     card: "#2C2547",

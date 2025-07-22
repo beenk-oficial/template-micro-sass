@@ -110,6 +110,24 @@
     "go_to_first_page": "Ir a la primera página",
     "go_to_previous_page": "Ir a la página anterior",
     "go_to_next_page": "Ir a la página siguiente",
-    "go_to_last_page": "Ir a la última página"
+    "go_to_last_page": "Ir a la última página",
+    "add_item": "Agregar ítem",
+    "remove_items": "Eliminar ítems",
+    "actions": "Acciones",
+    "no_results": "No se encontraron resultados.",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "type": "Tipo",
+    "status": "Estado",
+    "banned": "Prohibido",
+    "created_at": "Creado en",
+    "open_menu": "Abrir menú",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "search": "Buscar",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "yes": "Sí",
+    "no": "No"
   }
 }

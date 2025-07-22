@@ -35,7 +35,7 @@ export default checkCompanyId(async function handler(
       .eq("company_id", company_id);
 
     if (search) {
-      query = query.ilike("name", `%${search}%`);
+      query = query.ilike("full_name", `%${search}%`);
     }
 
     query = query.order(sortField as string, {
@@ -64,6 +64,7 @@ export default checkCompanyId(async function handler(
         currentTotalItems: count,
         totalItems: count || 0,
         totalPages,
+        search,
       },
     });
   } catch (error) {

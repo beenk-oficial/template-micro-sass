@@ -110,6 +110,24 @@
     "go_to_first_page": "Go to first page",
     "go_to_previous_page": "Go to previous page",
     "go_to_next_page": "Go to next page",
-    "go_to_last_page": "Go to last page"
+    "go_to_last_page": "Go to last page",
+    "add_item": "Add Item",
+    "remove_items": "Remove Items",
+    "actions": "Actions",
+    "no_results": "No results found.",
+    "name": "Name",
+    "email": "Email",
+    "type": "Type",
+    "status": "Status",
+    "banned": "Banned",
+    "created_at": "Created At",
+    "open_menu": "Open menu",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "active": "Active",
+    "inactive": "Inactive",
+    "yes": "Yes",
+    "no": "No"
   }
 }

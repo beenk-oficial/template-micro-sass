@@ -15,6 +15,9 @@ interface CustomInputProps {
   disabled?: boolean;
   additionalElement?: React.ReactNode;
   onChange: (value: string) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  icon?: React.ReactNode;
+  iconPosition?: "left" | "right";
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
@@ -30,6 +33,8 @@ const CustomInput: React.FC<CustomInputProps> = ({
   disabled = false,
   onChange,
   additionalElement,
+  onKeyDown,
+  icon,
 }) => {
   return (
     <CustomInputGroup
@@ -39,16 +44,25 @@ const CustomInput: React.FC<CustomInputProps> = ({
       required={required}
       additionalElement={additionalElement}
     >
-      <Input
-        id={id ?? name}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        required={required}
-        disabled={disabled}
-        onChange={(e) => onChange(e.target.value)}
-      />
+      <div className="relative">
+        {icon && (
+          <span className="absolute inset-y-0 left-2 flex items-center border-r pr-2">
+            {icon}
+          </span>
+        )}
+        <Input
+          id={id ?? name}
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          required={required}
+          disabled={disabled}
+          onChange={(e) => onChange(e.target.value)}
+          onKeyDown={onKeyDown}
+          className={icon ? `pl-9` : ""}
+        />
+      </div>
     </CustomInputGroup>
   );
 };

@@ -334,6 +334,8 @@ export interface IPagination {
   sortField: string;
   sortOrder: SortOrder;
 
+  search?: string;
+
   currentPage: number;
   itemsPerPage: number;
 

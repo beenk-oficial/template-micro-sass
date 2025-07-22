@@ -1,7 +1,7 @@
 import AdminLayout from "@/components/layout/AdminLayout";
 import { CustomTable } from "@/components/custom/Table/CustomTable";
 import { useState, useEffect } from "react";
-import { IPagination, SortOrder } from "@/types";
+import { IPagination, SortOrder, User } from "@/types";
 import { useFetch } from "@/hooks/useFetch";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -11,12 +11,19 @@ import {
   IconShieldCheck,
   IconUserCircle,
 } from "@tabler/icons-react";
-import { format } from "path";
+import { useTranslations } from "next-intl";
+import Form from "./form";
+import { ConfirmDeleteDialog } from "@/components/custom/Dialog/CustomDialog";
 
 export default function Page() {
+  const t = useTranslations("general");
   const customFetch = useFetch();
   const [data, setData] = useState([]);
   const [selected, setSelected] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState<Partial<User> | null>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [toDelete, setToDelete] = useState<string[] | null>(null);
 
   const [pagination, setPagination] = useState<IPagination>({
     sortField: "full_name",
@@ -26,22 +33,23 @@ export default function Page() {
     currentTotalItems: 0,
     totalItems: 0,
     totalPages: 0,
+    search: "",
   });
   const [loading, setLoading] = useState(false);
 
   const columns = [
     {
-      label: "Nome",
+      label: t("name"),
       field: "full_name",
       sortable: true,
     },
     {
-      label: "Email",
+      label: t("email"),
       field: "email",
       sortable: true,
     },
     {
-      label: "Tipo",
+      label: t("type"),
       field: "type",
       component: ({ row }) => {
         const getTypeIcon = (type: string) => {
@@ -69,7 +77,7 @@ export default function Page() {
       },
     },
     {
-      label: "Status",
+      label: t("status"),
       field: "is_active",
       component: ({ row }) => {
         return (
@@ -79,16 +87,15 @@ export default function Page() {
             ) : (
               <IconCircleXFilled className="fill-red-400" />
             )}
-            {row.is_active ? "Ativo" : "Inativo"}
+            {row.is_active ? t("active") : t("inactive")}{" "}
           </Badge>
         );
       },
     },
     {
-      label: "Banido",
+      label: t("banned"),
       field: "is_banned",
       component: ({ row }) => {
-        console.log("Row data:", row);
         return (
           <Badge variant="outline" className="text-muted-foreground px-1.5">
             {row.is_banned ? (
@@ -96,13 +103,13 @@ export default function Page() {
             ) : (
               <IconCircleCheckFilled className="fill-green-400" />
             )}
-            {row.is_banned ? "Sim" : "Não"}
+            {row.is_banned ? t("yes") : t("no")}
           </Badge>
         );
       },
     },
     {
-      label: "Criado em",
+      label: t("created_at"),
       field: "created_at",
       format: (value: string) => {
         const date = new Date(value);
@@ -115,15 +122,27 @@ export default function Page() {
     },
   ];
 
-  const fetchData = async () => {
+  const actions = {
+    update: (updatedData: Record<string, any>[]) => {
+      setEditingUser(updatedData);
+      setOpen(true);
+    },
+    delete: (id: string) => {
+      setDeleteDialogOpen(true);
+      setToDelete([id]);
+    },
+  };
+
+  const fetchData = async (updatedPagination: IPagination | null = null) => {
     setLoading(true);
     try {
       const response = await customFetch("/api/admin/users", {
         query: {
-          page: pagination.currentPage,
-          perPage: pagination.itemsPerPage,
-          sortField: pagination.sortField,
-          sortOrder: pagination.sortOrder,
+          page: updatedPagination?.currentPage ?? pagination.currentPage,
+          perPage: updatedPagination?.itemsPerPage ?? pagination.itemsPerPage,
+          sortField: updatedPagination?.sortField ?? pagination.sortField,
+          sortOrder: updatedPagination?.sortOrder ?? pagination.sortOrder,
+          search: updatedPagination?.search ?? pagination.search,
         },
       });
       if (response.ok) {
@@ -149,17 +168,51 @@ export default function Page() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    fetchData();
-  }, [
-    pagination.currentPage,
-    pagination.itemsPerPage,
-    pagination.sortField,
-    pagination.sortOrder,
-  ]);
-
   const handleRequest = (updatedPagination: IPagination) => {
     setPagination(updatedPagination);
+    fetchData(updatedPagination);
+  };
+
+  const handleAddUser = () => {
+    setEditingUser(null);
+    setOpen(true);
+  };
+
+  const handleSubmitUser = (formData: Partial<User>) => {
+    if (editingUser) {
+      console.log("Updating user:", { ...editingUser, ...formData });
+      // Implement update logic here
+    } else {
+      console.log("Creating user:", formData);
+      // Implement create logic here
+    }
+    setOpen(false);
+  };
+
+  const handleRemoveUsers = () => {
+    if (selected.length > 0) {
+      setToDelete(selected.map((item: User) => item.id));
+      setDeleteDialogOpen(true);
+    }
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      const response = await customFetch("/api/admin/users/delete", {
+        method: "DELETE",
+        body: { ids: toDelete },
+      });
+
+      if (response.ok) {
+        fetchData();
+        setSelected([]);
+      }
+    } catch (error) {
+      console.error("Error deleting user(s):", error);
+    } finally {
+      setToDelete(null);
+      setDeleteDialogOpen(false);
+    }
   };
 
   return (
@@ -171,8 +224,26 @@ export default function Page() {
           pagination={pagination}
           selected={selected}
           loading={loading}
+          actions={actions}
           onRowSelectionChange={setSelected}
           onRequest={handleRequest}
+          onAddItem={handleAddUser}
+          onRemoveItens={handleRemoveUsers}
+        />
+
+        <Form
+          open={open}
+          data={editingUser}
+          onOpenChange={setOpen}
+          onSubmit={handleSubmitUser}
+        />
+
+        <ConfirmDeleteDialog
+          open={deleteDialogOpen}
+          onOpenChange={setDeleteDialogOpen}
+          onConfirm={handleConfirmDelete}
+          title="Confirm Deletion"
+          description="Are you sure you want to delete this user? This action cannot be undone."
         />
       </div>
     </AdminLayout>
