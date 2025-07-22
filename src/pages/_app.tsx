@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from "next-intl";
 import type { AppProps } from "next/app";
 import { getLocale, getMessages } from "@/lib/i18n";
 import "@/styles/globals.css";
+import "@/styles/spinner.css";
 import { useWhitelabel } from "@/hooks/useWhitelabel";
 import { useEffect, useState } from "react";
 import { Spinner } from "@/components/custom/Spinner";
