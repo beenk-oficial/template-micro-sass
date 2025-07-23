@@ -10,6 +10,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { useTranslations } from "next-intl";
 
 interface CustomFormProps {
   open: boolean;
@@ -32,6 +33,7 @@ export default function CustomForm({
   onSubmit,
 }: CustomFormProps) {
   const isMobile = useIsMobile();
+  const t = useTranslations("general");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,10 +62,10 @@ export default function CustomForm({
           {footer || (
             <>
               <Button type="submit" onClick={handleSubmit}>
-                Save
+                {t("save")}
               </Button>
               <DrawerClose asChild>
-                <Button variant="outline">Cancel</Button>
+                <Button variant="outline">{t("cancel")}</Button>
               </DrawerClose>
             </>
           )}

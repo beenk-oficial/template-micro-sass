@@ -103,6 +103,7 @@ export type User = {
   show_onboarding?: boolean;
   avatar_url?: string;
   is_banned?: boolean;
+  is_active?: boolean;
   type: UserType;
 } & Timestamps;
 

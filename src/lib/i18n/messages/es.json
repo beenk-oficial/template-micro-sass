@@ -128,6 +128,21 @@
     "active": "Activo",
     "inactive": "Inactivo",
     "yes": "Sí",
-    "no": "No"
+    "no": "No",
+    "confirm_deletion": "Confirmar Eliminación",
+    "confirm_deletion_description": "¿Está seguro de que desea eliminar este usuario? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "guest": "Invitado",
+    "user": "Usuario",
+    "admin": "Administrador",
+    "full_name": "Nombre completo",
+    "is_active": "Activo",
+    "is_banned": "Prohibido",
+    "edit_user": "Editar Usuario",
+    "create_user": "Crear Usuario",
+    "update_user_details": "Actualizar detalles del usuario",
+    "fill_create_user": "Complete los datos para crear un nuevo usuario",
+    "select_type": "Seleccione un tipo",
+    "save": "Guardar"
   }
 }

@@ -7,7 +7,7 @@ interface CustomInputProps {
   name?: string;
   type?: string;
   placeholder?: string;
-  value: string;
+  value?: string;
   label?: string;
   htmlFor?: string;
   required?: boolean;

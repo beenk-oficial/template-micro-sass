@@ -128,6 +128,21 @@
     "active": "Active",
     "inactive": "Inactive",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "confirm_deletion": "Confirm Deletion",
+    "confirm_deletion_description": "Are you sure you want to delete this user? This action cannot be undone.",
+    "cancel": "Cancel",
+    "guest": "Guest",
+    "user": "User",
+    "admin": "Admin",
+    "full_name": "Full Name",
+    "is_active": "Active",
+    "is_banned": "Banned",
+    "edit_user": "Edit User",
+    "create_user": "Create User",
+    "update_user_details": "Update user details",
+    "fill_create_user": "Fill in the details to create a new user",
+    "select_type": "Select a type",
+    "save": "Save"
   }
 }

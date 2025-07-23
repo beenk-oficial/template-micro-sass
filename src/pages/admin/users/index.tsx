@@ -71,7 +71,7 @@ export default function Page() {
             className="text-muted-foreground px-1.5 flex items-center"
           >
             {getTypeIcon(row.type)}
-            {row.type}
+            {t(row.type)}
           </Badge>
         );
       },
@@ -127,9 +127,9 @@ export default function Page() {
       setEditingUser(updatedData);
       setOpen(true);
     },
-    delete: (id: string) => {
+    delete: (row: Record<string, any>) => {
       setDeleteDialogOpen(true);
-      setToDelete([id]);
+      setToDelete([row.id]);
     },
   };
 
@@ -171,11 +171,6 @@ export default function Page() {
   const handleRequest = (updatedPagination: IPagination) => {
     setPagination(updatedPagination);
     fetchData(updatedPagination);
-  };
-
-  const handleAddUser = () => {
-    setEditingUser(null);
-    setOpen(true);
   };
 
   const handleSubmitUser = (formData: Partial<User>) => {
@@ -227,7 +222,6 @@ export default function Page() {
           actions={actions}
           onRowSelectionChange={setSelected}
           onRequest={handleRequest}
-          onAddItem={handleAddUser}
           onRemoveItens={handleRemoveUsers}
         />
 
@@ -242,8 +236,6 @@ export default function Page() {
           open={deleteDialogOpen}
           onOpenChange={setDeleteDialogOpen}
           onConfirm={handleConfirmDelete}
-          title="Confirm Deletion"
-          description="Are you sure you want to delete this user? This action cannot be undone."
         />
       </div>
     </AdminLayout>

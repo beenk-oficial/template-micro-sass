@@ -13,6 +13,8 @@ import { User, UserType } from "@/types";
 import CustomForm from "@/components/custom/Input/CustomForm";
 import CustomInput from "@/components/custom/Input/CustomInput";
 import { useTranslations } from "next-intl";
+import CustomCheckbox from "@/components/custom/Input/CustomCheckbox";
+import CustomSelect from "@/components/custom/Input/CustomSelect";
 
 export default function Form({
   data,
@@ -40,6 +42,7 @@ export default function Form({
     show_onboarding: false,
     avatar_url: "",
     is_banned: false,
+    is_active: false,
     type: UserType.USER,
   });
 
@@ -57,6 +60,7 @@ export default function Form({
         show_onboarding: data.show_onboarding || false,
         avatar_url: data.avatar_url || "",
         is_banned: data.is_banned || false,
+        is_active: data.is_active || false,
         type: data.type || UserType.USER,
       });
     }
@@ -73,15 +77,21 @@ export default function Form({
     }
   };
 
+  const typeOptions = [
+    { value: UserType.ADMIN, label: t("admin") },
+    { value: UserType.USER, label: t("user") },
+    { value: UserType.GUEST, label: t("guest") },
+  ];
+
   return (
     <CustomForm
       open={open}
       onOpenChange={onOpenChange}
-      title={data ? "Edit User" : "Create User"}
+      title={data ? t("edit_user") : t("create_user")}
       description={
         data
-          ? "Update user details"
-          : "Fill in the details to create a new user"
+          ? t("update_user_details")
+          : t("fill_create_user")
       }
       onSubmit={handleSubmit}
     >
@@ -103,43 +113,35 @@ export default function Form({
           disabled={loading}
           required
         />
+        
+        <CustomSelect
+          name="type"
+          label={t("type")}
+          value={formData.type}
+          placeholder={t("select_type")}
+          onChange={(value) => handleChange("type", value)}
+          disabled={loading}
+          options={typeOptions}
+          required
+        />
 
-        <div className="flex flex-col gap-3">
-          <Label htmlFor="birth_date">Birth Date</Label>
-          <Input
-            id="birth_date"
-            type="date"
-            value={formData.birth_date}
-            onChange={(e) => handleChange("birth_date", e.target.value)}
-          />
-        </div>
+        <CustomCheckbox
+          name="isActive"
+          value={formData.is_active}
+          label={t("is_active")}
+          disabled={loading}
+          onChange={(value) => handleChange("is_active", value)}
+        />
 
-        <div className="flex items-center gap-3">
-          <Label htmlFor="is_banned">Banned</Label>
-          <input
-            id="is_banned"
-            type="checkbox"
-            checked={formData.is_banned}
-            onChange={(e) => handleChange("is_banned", e.target.checked)}
-          />
-        </div>
+        <CustomCheckbox
+          name="isBanned"
+          value={formData.is_banned}
+          label={t("is_banned")}
+          disabled={loading}
+          onChange={(value) => handleChange("is_banned", value)}
+        />
 
-        <div className="flex flex-col gap-3">
-          <Label htmlFor="type">Type</Label>
-          <Select
-            value={formData.type}
-            onValueChange={(value) => handleChange("type", value)}
-          >
-            <SelectTrigger id="type" className="w-full">
-              <SelectValue placeholder="Select a type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={UserType.ADMIN}>Admin</SelectItem>
-              <SelectItem value={UserType.USER}>User</SelectItem>
-              <SelectItem value={UserType.GUEST}>Guest</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+
       </>
     </CustomForm>
   );

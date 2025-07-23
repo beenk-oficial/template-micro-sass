@@ -8,6 +8,9 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { ReactNode } from "react";
+import { Button } from "@/components/ui/button";
+import { Trash2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface CustomDialogProps {
   open: boolean;
@@ -37,31 +40,37 @@ interface ConfirmDeleteDialogProps {
 }
 
 export const ConfirmDeleteDialog = ({
-  title = "Are you sure?",
-  description = "This action cannot be undone.",
+  title,
+  description,
   open,
   onOpenChange,
   onConfirm,
 }: ConfirmDeleteDialogProps) => {
+  const t = useTranslations("general");
   return (
     <CustomDialog open={open} onOpenChange={onOpenChange}>
       <DialogHeader>
-        <DialogTitle>{title}</DialogTitle>
-        <DialogDescription>{description}</DialogDescription>
+        <DialogTitle>{title ?? t("confirm_deletion")}</DialogTitle>
+        <DialogDescription>
+          {description ?? t("confirm_deletion_description")}
+        </DialogDescription>
       </DialogHeader>
       <DialogFooter>
-        <button
-          className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+        <Button
           onClick={() => onOpenChange(false)}
+          type="button"
+          variant={"outline"}
         >
-          Cancel
-        </button>
-        <button
-          className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+          {t("cancel")}
+        </Button>
+        <Button
           onClick={onConfirm}
+          type="button"
+          variant={"destructive"}
         >
-          Delete
-        </button>
+          <Trash2 className=" h-4 w-4" />
+          {t("delete")}
+        </Button>
       </DialogFooter>
     </CustomDialog>
   );

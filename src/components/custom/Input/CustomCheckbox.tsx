@@ -7,7 +7,7 @@ interface CustomCheckboxProps {
   name?: string;
   type?: string;
   placeholder?: string;
-  value: boolean;
+  value?: boolean;
   label?: string;
   htmlFor?: string;
   required?: boolean;
