@@ -60,12 +60,12 @@ const handleRowSelection = (
   row: unknown,
   isSelected: boolean,
   selected: unknown[],
-  onRowSelectionChange: (selectedRows: unknown[]) => void
+  onRowSelectionChange?: (selectedRows: unknown[]) => void
 ) => {
   const updatedSelected = isSelected
     ? [...selected, row]
     : selected.filter((item) => item !== row);
-  onRowSelectionChange(updatedSelected);
+  onRowSelectionChange?.(updatedSelected);
 };
 
 const renderActionCell = (row: Record<string, any>, actions: any, t: any) => {
@@ -118,11 +118,11 @@ export default function CustomTableBody({
   columns: IColumns[];
   selected?: unknown[];
   loading: boolean;
-  actions: {
+  actions?: {
     update: (updatedData: Record<string, any>[]) => void;
     delete: (row: Record<string, any>) => void;
   };
-  onRowSelectionChange: (selectedRows: unknown[]) => void;
+  onRowSelectionChange?: (selectedRows: unknown[]) => void;
 }) {
   const t = useTranslations("general");
 

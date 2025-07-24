@@ -1,7 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import authenticated from "@/middleware/authenticated";
+import { decodedAccessToken } from "@/utils/api";
 
-export default async function handler(
+export default authenticated(async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -11,33 +13,20 @@ export default async function handler(
     return res.status(405).json({ message: "Method not allowed" });
   }
 
-  const { id, ids } = req.body;
+  const { company_id } = decodedAccessToken(req);
+  const { ids } = req.body;
 
   try {
-    if (id) {
-      const { error } = await supabase.from("users").delete().eq("id", id);
+    const { error } = await supabase.from("users").delete().in("id", ids).eq("company_id", company_id);
 
-      if (error) {
-        return res
-          .status(400)
-          .json({ message: "Failed to delete user", error });
-      }
-
-      return res.status(200).json({ message: "User deleted successfully" });
-    } else if (ids && Array.isArray(ids)) {
-      const { error } = await supabase.from("users").delete().in("id", ids);
-
-      if (error) {
-        return res
-          .status(400)
-          .json({ message: "Failed to delete users", error });
-      }
-
-      return res.status(200).json({ message: "Users deleted successfully" });
+    if (error) {
+      return res
+        .status(400)
+        .json({ message: "Failed to delete users", error });
     }
 
-    return res.status(400).json({ message: "No valid id or ids provided" });
+    return res.status(200).json({ message: "Users deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error });
   }
-}
+})

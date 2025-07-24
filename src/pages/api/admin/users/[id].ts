@@ -1,7 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import authenticated from "@/middleware/authenticated";
+import { decodedAccessToken } from "@/utils/api";
 
-export default async function handler(
+export default authenticated(async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -10,7 +12,8 @@ export default async function handler(
   if (req.method !== "GET") {
     return res.status(405).json({ message: "Method not allowed" });
   }
-
+  
+  const { company_id } = decodedAccessToken(req);
   const { id } = req.query;
 
   try {
@@ -18,6 +21,7 @@ export default async function handler(
       .from("users")
       .select("*")
       .eq("id", id)
+      .eq("company_id", company_id)
       .single();
 
     if (error) {
@@ -28,4 +32,4 @@ export default async function handler(
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error });
   }
-}
+})

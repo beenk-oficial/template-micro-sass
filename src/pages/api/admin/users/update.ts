@@ -1,7 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import authenticated from "@/middleware/authenticated";
+import { decodedAccessToken } from "@/utils/api";
 
-export default async function handler(
+export default authenticated(async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -12,12 +14,14 @@ export default async function handler(
   }
 
   const { id, ...updates } = req.body;
+  const { company_id, user_id } = decodedAccessToken(req);
 
   try {
     const { data: user, error } = await supabase
       .from("users")
-      .update(updates)
+      .update({ updates, updated_at: new Date(), updated_by: user_id })
       .eq("id", id)
+      .eq("company_id", company_id)
       .single();
 
     if (error) {
@@ -28,4 +32,4 @@ export default async function handler(
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error });
   }
-}
+})

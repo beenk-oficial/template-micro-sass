@@ -20,7 +20,7 @@ export default function CustomTableHeader({
   selected?: unknown[];
   data: Record<string, any>[];
   disabled: boolean;
-  actions: {
+  actions?: {
     update: (updatedData: Record<string, any>[]) => void;
     delete: (row: Record<string, any>) => void;
   };

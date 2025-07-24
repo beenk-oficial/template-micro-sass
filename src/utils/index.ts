@@ -28,3 +28,14 @@ export function getCookieValue(key: string): string | null {
 export function setCookie(key: string, value: string, maxAge: number) {
   document.cookie = `${key}=${value}; Path=/; Max-Age=${maxAge}; `;
 }
+
+
+export function formatToLocaleDate(value: string) {
+  if (!value) return "-";
+  const date = new Date(value);
+  return date.toLocaleDateString(navigator.language, {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+}

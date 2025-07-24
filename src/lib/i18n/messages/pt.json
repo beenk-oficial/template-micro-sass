@@ -143,6 +143,18 @@
     "update_user_details": "Atualizar dados do usuário",
     "fill_create_user": "Preencha os dados para criar um novo usuário",
     "select_type": "Selecione um tipo",
-    "save": "Salvar"
+    "save": "Salvar",
+    "incomplete": "Incompleto",
+    "incomplete_expired": "Incompleto Expirado",
+    "trialing": "Em avaliação",
+    "past_due": "Vencido",
+    "canceled": "Cancelado",
+    "unpaid": "Não pago",
+    "trial_start": "Início do teste",
+    "trial_end": "Fim do teste",
+    "current_period_start": "Início do período atual",
+    "current_period_end": "Fim do período atual",
+    "canceled_at": "Cancelado em",
+    "plan": "Plano"
   }
 }

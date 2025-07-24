@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
-import { SortOrder } from "@/types";
+import { SortOrder, SubscriptionOwnerType } from "@/types";
 import authenticated from "@/middleware/authenticated";
 import { decodedAccessToken } from "@/utils/api";
 
@@ -36,14 +36,17 @@ async function paginated(req: NextApiRequest,
 
   try {
     let query = supabase
-      .from("users")
-      .select("id,full_name,type,is_active,is_banned,email,created_at", {
-        count: "exact",
-      })
+      .from("subscriptions")
+      .select(
+        `id,status,plan_id,trial_start,trial_end,current_period_start,current_period_end,canceled_at,created_at,
+         users!inner(email)`
+        , { count: "exact" }
+      )
+      .eq("owner_type", SubscriptionOwnerType.USER)
       .eq("company_id", company_id);
 
     if (search) {
-      query = query.ilike("full_name", `%${search}%`);
+      query = query.ilike("users.email", `%${search}%`);
     }
 
     query = query.order(sortField as string, {
@@ -57,13 +60,16 @@ async function paginated(req: NextApiRequest,
     const { data, count, error } = await query;
 
     if (error) {
-      return res.status(500).json({ message: "Failed to fetch users", error });
+      return res.status(500).json({ message: "Failed to fetch", error });
     }
 
     const totalPages = Math.ceil((count || 0) / itemsPerPage);
 
     res.status(200).json({
-      data,
+      data: data.map(subscription => ({
+        ...subscription,
+        email: subscription.users?.email,
+      })),
       pagination: {
         sortField,
         sortOrder,

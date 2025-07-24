@@ -27,11 +27,11 @@ export function CustomTable({
   pagination: IPagination;
   selected?: unknown[];
   loading: boolean;
-  actions: {
+  actions?: {
     update: (updatedData: Record<string, any>[]) => void;
     delete: (row: Record<string, any>) => void;
   };
-  onRowSelectionChange: (selectedRows: unknown[]) => void;
+  onRowSelectionChange?: (selectedRows: unknown[]) => void;
   onRequest: (updatedPagination: IPagination) => void;
   onAddItem?: () => void;
   onRemoveItens?: (selectedRows: unknown[]) => void;

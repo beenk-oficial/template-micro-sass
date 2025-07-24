@@ -143,6 +143,18 @@
     "update_user_details": "Update user details",
     "fill_create_user": "Fill in the details to create a new user",
     "select_type": "Select a type",
-    "save": "Save"
+    "save": "Save",
+    "incomplete": "Incomplete",
+    "incomplete_expired": "Incomplete Expired",
+    "trialing": "Trialing",
+    "past_due": "Past Due",
+    "canceled": "Canceled",
+    "unpaid": "Unpaid",
+    "trial_start": "Trial Start",
+    "trial_end": "Trial End",
+    "current_period_start": "Current Period Start",
+    "current_period_end": "Current Period End",
+    "canceled_at": "Canceled At",
+    "plan": "Plan"
   }
 }

@@ -87,9 +87,9 @@ export default function AdminLayout({
       },
       {
         title: t("general.plans_and_subscriptions"),
-        url: "/admin/plans",
+        url: "/admin/subscriptions",
         icon: Package,
-        isActive: router.pathname === "/admin/plans",
+        isActive: router.pathname === "/admin/subscriptions",
       },
       {
         title: t("general.payments"),

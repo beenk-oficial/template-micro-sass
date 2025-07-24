@@ -51,7 +51,7 @@ export default function Page() {
     {
       label: t("type"),
       field: "type",
-      component: ({ row }) => {
+      component: ({ row }: { row: any }) => {
         const getTypeIcon = (type: string) => {
           switch (type) {
             case "admin":
@@ -79,7 +79,7 @@ export default function Page() {
     {
       label: t("status"),
       field: "is_active",
-      component: ({ row }) => {
+      component: ({ row }: { row: any }) => {
         return (
           <Badge variant="outline" className="text-muted-foreground px-1.5">
             {row.is_active ? (
@@ -95,7 +95,7 @@ export default function Page() {
     {
       label: t("banned"),
       field: "is_banned",
-      component: ({ row }) => {
+      component: ({ row }: { row: any }) => {
         return (
           <Badge variant="outline" className="text-muted-foreground px-1.5">
             {row.is_banned ? (
