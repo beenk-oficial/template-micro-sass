@@ -173,7 +173,7 @@ export default function Login() {
             disabled={loading}
             additionalElement={
               <CustomLink
-                href="/request_password_reset"
+                href="/auth/request_password_reset"
                 className="ml-auto text-sm underline-offset-4 hover:underline"
               >
                 {t("forgot_password")}
@@ -209,7 +209,7 @@ export default function Login() {
         </div>
         <div className="text-center text-sm">
           {t("signup_prompt")}{" "}
-          <CustomLink href="/signup" className="underline underline-offset-4">
+          <CustomLink href="/auth/signup" className="underline underline-offset-4">
             {t("signup_link")}
           </CustomLink>
         </div>

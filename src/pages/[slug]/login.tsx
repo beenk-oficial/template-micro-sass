@@ -1,3 +1,3 @@
-import Login from "@/pages/login";
+import Login from "@/pages/auth/signin";
 
 export default Login;

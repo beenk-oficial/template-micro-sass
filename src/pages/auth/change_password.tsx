@@ -28,11 +28,11 @@ export default function ResetPassword() {
         if (response.ok) {
           setTokenValid(true);
         } else {
-          router.push("/password_reset");
+          router.push("/auth/password_reset");
         }
       } catch (error) {
         console.error("Token validation error:", error);
-        router.push("/password_reset");
+        router.push("/auth/password_reset");
       }
     };
 
@@ -72,7 +72,7 @@ export default function ResetPassword() {
       }
 
       console.log("Password reset successfully");
-      router.push("/login");
+      router.push("/signin");
     } catch (error) {
       console.error("Unexpected error during password reset:", error);
     } finally {

@@ -69,7 +69,7 @@ export default function SignUp() {
         setLoading(false);
         return;
       }
-      router.push(normalizeLink("/login", router));
+      router.push(normalizeLink("/signin", router));
     } catch (error) {
       console.error("Signup error:", error);
       setErrorMessage(generalTranslate("error_occurred"));
@@ -182,7 +182,7 @@ export default function SignUp() {
         </div>
         <div className="text-center text-sm">
           {t("login_prompt")}{" "}
-          <CustomLink href="/login" className="underline underline-offset-4">
+          <CustomLink href="/auth/signin" className="underline underline-offset-4">
             {t("login_link")}
           </CustomLink>
         </div>

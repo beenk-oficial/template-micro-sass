@@ -91,7 +91,7 @@ export default function PasswordReset() {
           </Button>
         </form>
         <div className="text-center text-sm mt-4">
-          <CustomLink href="/login" className="underline underline-offset-4">
+          <CustomLink href="/auth/signin" className="underline underline-offset-4">
             {t("back_to_login")}
           </CustomLink>
         </div>
