@@ -68,7 +68,7 @@ async function paginated(req: NextApiRequest,
     res.status(200).json({
       data: data.map(subscription => ({
         ...subscription,
-        email: subscription.users?.email,
+        email: (subscription.users as any)?.email,
       })),
       pagination: {
         sortField,

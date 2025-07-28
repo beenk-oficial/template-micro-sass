@@ -13,7 +13,7 @@ export default function Form({
   onOpenChange,
   onSubmit,
 }: {
-  data?: User;
+  data?: any;
   open: boolean;
   onOpenChange?: (open: boolean) => void;
   onSubmit?: (formData: Partial<User>) => void;

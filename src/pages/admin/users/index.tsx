@@ -123,7 +123,7 @@ export default function Page() {
   ];
 
   const actions = {
-    update: (updatedData: Record<string, any>[]) => {
+    update: (updatedData: any) => {
       setEditingUser(updatedData);
       setOpen(true);
     },

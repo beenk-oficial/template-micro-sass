@@ -31,7 +31,7 @@ export function CustomTable({
     update: (updatedData: Record<string, any>[]) => void;
     delete: (row: Record<string, any>) => void;
   };
-  onRowSelectionChange?: (selectedRows: unknown[]) => void;
+  onRowSelectionChange?: any;
   onRequest: (updatedPagination: IPagination) => void;
   onAddItem?: () => void;
   onRemoveItens?: (selectedRows: unknown[]) => void;
