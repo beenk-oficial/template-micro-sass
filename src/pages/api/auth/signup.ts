@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import checkCompanyId from "@/middleware/checkCompanyId";
 
