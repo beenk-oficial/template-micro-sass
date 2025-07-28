@@ -26,8 +26,8 @@ export default async function handler(
 
     if (slug) {
       query.eq("slug", slug);
-    } else if (domain) {
-      query.eq("domain", domain);
+    } else {
+      query.eq("domain", "localhost");
     }
 
     const { data: company, error } = await query.single();

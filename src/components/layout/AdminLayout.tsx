@@ -24,6 +24,22 @@ import { useUserStore } from "@/stores/user";
 import { setCookie } from "@/utils";
 import { User, UserType } from "@/types";
 
+enum AdminRoutes {
+  Dashboard = "/admin/dashboard",
+  Users = "/admin/users",
+  Plans = "/admin/plans",
+  Subscriptions = "/admin/subscriptions",
+  Payments = "/admin/payments",
+  Invoices = "/admin/invoices",
+  PromoCodes = "/admin/promo_codes",
+  Referrals = "/admin/referrals",
+  Roles = "/admin/roles",
+  SettingsCompany = "/admin/settings/company",
+  SettingsWhitelabel = "/admin/settings/whitelabel",
+  SettingsBilling = "/admin/settings/billing",
+  Settings = "/admin/settings",
+}
+
 export default function AdminLayout({
   children,
 }: Readonly<{
@@ -75,68 +91,74 @@ export default function AdminLayout({
     navMain: [
       {
         title: t("general.dashboard"),
-        url: "/admin/dashboard",
+        url: AdminRoutes.Dashboard,
         icon: LayoutDashboard,
-        isActive: router.pathname === "/admin/dashboard",
+        isActive: router.pathname === AdminRoutes.Dashboard,
       },
       {
         title: t("general.manage_users"),
-        url: "/admin/users",
+        url: AdminRoutes.Users,
         icon: Users,
-        isActive: router.pathname === "/admin/users",
+        isActive: router.pathname === AdminRoutes.Users,
       },
       {
-        title: t("general.plans_and_subscriptions"),
-        url: "/admin/subscriptions",
+        title: t("general.plans"),
+        url: AdminRoutes.Plans,
+        icon: Tag,
+        isActive: router.pathname === AdminRoutes.Plans,
+      },
+      {
+        title: t("general.subscriptions"),
+        url: AdminRoutes.Subscriptions,
         icon: Package,
-        isActive: router.pathname === "/admin/subscriptions",
+        isActive: router.pathname === AdminRoutes.Subscriptions,
       },
       {
         title: t("general.payments"),
-        url: "/admin/payments",
+        url: AdminRoutes.Payments,
         icon: CreditCard,
-        isActive: router.pathname === "/admin/payments",
+        isActive: router.pathname === AdminRoutes.Payments,
       },
       {
         title: t("general.invoices"),
-        url: "/admin/invoices",
+        url: AdminRoutes.Invoices,
         icon: FileText,
-        isActive: router.pathname === "/admin/invoices",
+        isActive: router.pathname === AdminRoutes.Invoices,
       },
       {
         title: t("general.promo_codes"),
-        url: "/admin/promo_codes",
+        url: AdminRoutes.PromoCodes,
         icon: Tag,
-        isActive: router.pathname === "/admin/promo_codes",
+        isActive: router.pathname === AdminRoutes.PromoCodes,
       },
       {
         title: t("general.referrals"),
-        url: "/admin/referrals",
+        url: AdminRoutes.Referrals,
         icon: Share,
-        isActive: router.pathname === "/admin/referrals",
+        isActive: router.pathname === AdminRoutes.Referrals,
       },
       {
         title: t("general.access_control"),
-        url: "/admin/roles",
+        url: AdminRoutes.Roles,
         icon: Shield,
-        isActive: router.pathname === "/admin/roles",
+        isActive: router.pathname === AdminRoutes.Roles,
       },
       {
         title: t("general.settings"),
         icon: Settings,
-        isActive: router.pathname.startsWith("/admin/settings"),
+        isActive: router.pathname.startsWith(AdminRoutes.Settings),
         items: [
           {
             title: t("general.company"),
-            url: "/admin/settings/company",
+            url: AdminRoutes.SettingsCompany,
           },
           {
             title: t("general.whitelabel"),
-            url: "/admin/settings/whitelabel",
+            url: AdminRoutes.SettingsWhitelabel,
           },
           {
             title: t("general.billing"),
-            url: "/admin/settings/billing",
+            url: AdminRoutes.SettingsBilling,
           },
         ],
       },
