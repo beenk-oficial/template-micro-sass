@@ -124,6 +124,8 @@ export default checkCompanyId(async function handler(
     { expiresIn: "7d" }
   );
 
+  console.log('authentication', authentication)
+
   const { error: tokenError } = await supabase
     .from("authentications")
     .update({
