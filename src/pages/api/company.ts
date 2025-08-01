@@ -36,6 +36,8 @@ export default async function handler(
       return res.status(404).json({ error: "Company not found" });
     }
 
+    console.log("response", company)
+
     return res.status(200).json(company);
   } catch (error) {
     console.error("Error fetching company data:", error);
